@@ -400,6 +400,64 @@ section { position: relative; z-index: 1; padding: 6rem 6%; }
 }
 .stat-card .desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
 
+/* ─── EXPERIENCE / TIMELINE ─────────────────────────── */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 2rem;
+}
+.timeline::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 7px;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+.timeline-dot {
+  position: absolute;
+  left: -2rem;
+  width: 16px; height: 16px;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  z-index: 2;
+  transition: all var(--transition);
+}
+.timeline-item:hover .timeline-dot {
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent-dim);
+}
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.timeline-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all var(--transition);
+}
+.timeline-item:hover .timeline-content {
+  border-color: rgba(0,245,212,0.3);
+  transform: translateX(10px);
+}
+.timeline-content h3 { font-size: 1.15rem; margin-bottom: 0.3rem; color: var(--text); }
+.timeline-org { 
+  font-size: 0.9rem; 
+  color: var(--muted); 
+  font-weight: 600; 
+  margin-bottom: 1rem;
+}
+.timeline-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
 /* ─── SKILLS ─────────────────────────────────────────── */
 #skills { background: var(--bg-2); }
 .skills-grid {
