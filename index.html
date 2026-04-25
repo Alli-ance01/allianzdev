@@ -24,6 +24,12 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact" class="nav-cta">Contact</a></li>
+      <li>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </li>
     </ul>
 
     <div class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -281,6 +287,40 @@
     </div>
   </section>
 
+  <!-- ═══ MINI PROJECTS ═══════════════════════════════════════ -->
+  <section id="mini-projects">
+    <div class="fade-in">
+      <p class="section-label">// playground</p>
+      <h2 class="section-title">Mini Projects</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mini-grid fade-in">
+      
+      <div class="mini-card">
+        <div class="mini-icon">⏱️</div>
+        <div class="mini-name">Custom Timer</div>
+        <p class="mini-desc">A focus timer with customizable intervals and sound notifications.</p>
+        <a href="mini-projects/timer/index.html" class="mini-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-icon">🎨</div>
+        <div class="mini-name">Color Palette Gen</div>
+        <p class="mini-desc">Generate beautiful color schemes with a single click.</p>
+        <a href="mini-projects/palette/index.html" class="mini-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-icon">📝</div>
+        <div class="mini-name">Markdown Previewer</div>
+        <p class="mini-desc">Real-time markdown editor and renderer for quick notes.</p>
+        <a href="mini-projects/markdown/index.html" class="mini-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ═══ CONTACT ══════════════════════════════════════════════ -->
   <section id="contact">
     <div class="contact-inner fade-in">
@@ -291,9 +331,28 @@
         I'm always open to new projects, collaborations, or just a good tech conversation.
         Whether you have an idea, an opportunity, or just want to say hi — my inbox is open.
       </p>
+
+      <form action="https://formspree.io/f/mdayjnrv" method="POST" class="contact-form fade-in">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea name="message" id="message" class="form-control" placeholder="How can I help you?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+          <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+
       <div class="contact-btns">
-        <a href="mailto:timileyinogunderekingmex@gmail.com" class="btn btn-primary" id="email-btn">
-          <i class="fa-solid fa-envelope"></i> Send an Email
+        <a href="mailto:timileyinogunderekingmex@gmail.com" class="btn btn-outline" id="email-btn">
+          <i class="fa-solid fa-envelope"></i> timileyinogunderekingmex@gmail.com
         </a>
         <a href="https://github.com/Alli-ance01" target="_blank" rel="noopener" class="btn btn-outline" id="github-btn">
           <i class="fa-brands fa-github"></i> GitHub
@@ -306,6 +365,10 @@
   <footer>
     <p>Designed &amp; Built by <span>Oluwatimileyin Ogundere</span> &nbsp;·&nbsp; &copy; <span id="year"></span></p>
   </footer>
+
+  <button id="scroll-top" title="Go to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
   <script src="script.js"></script>
 </body>

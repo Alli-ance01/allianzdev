@@ -17,6 +17,18 @@
   --transition: 0.3s ease;
 }
 
+[data-theme="light"] {
+  --bg:        #f8fafc;
+  --bg-2:      #f1f5f9;
+  --bg-card:   rgba(0,0,0,0.03);
+  --border:    rgba(0,0,0,0.1);
+  --accent:    #0ea5e9;
+  --accent-dim:#0ea5e940;
+  --purple:    #8b5cf6;
+  --text:      #0f172a;
+  --muted:     #64748b;
+}
+
 /* ─── RESET ──────────────────────────────────────────── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; overflow-x: hidden; }
@@ -105,6 +117,23 @@ body::before {
 }
 .nav-cta:hover { background: var(--accent) !important; color: var(--bg) !important; }
 .nav-cta::after { display: none !important; }
+
+/* Theme Toggle */
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle .fa-sun { display: none; }
+[data-theme="light"] .theme-toggle .fa-moon { display: none; }
+[data-theme="light"] .theme-toggle .fa-sun { display: block; }
 
 /* Hamburger */
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
@@ -417,6 +446,32 @@ section { position: relative; z-index: 1; padding: 6rem 6%; }
   border-radius: 99px;
 }
 
+/* ─── MINI PROJECTS ──────────────────────────────────── */
+#mini-projects { background: var(--bg-2); }
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+.mini-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  transition: var(--transition);
+}
+.mini-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.mini-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.mini-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+.mini-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+.mini-link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.mini-link:hover { text-decoration: underline; }
+
 /* ─── CONTACT ────────────────────────────────────────── */
 #contact { background: var(--bg-2); text-align: center; }
 .contact-inner { max-width: 600px; margin: 0 auto; }
@@ -426,6 +481,37 @@ section { position: relative; z-index: 1; padding: 6rem 6%; }
   margin-bottom: 2.5rem;
   line-height: 1.8;
 }
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto 3rem;
+  text-align: left;
+}
+.form-group { margin-bottom: 1.2rem; }
+.form-group label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.form-control {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(0,245,212,0.1);
+}
+textarea.form-control { resize: vertical; min-height: 120px; }
 .contact-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
 /* ─── FOOTER ─────────────────────────────────────────── */
@@ -439,6 +525,26 @@ footer {
   color: var(--muted);
 }
 footer span { color: var(--accent); }
+
+/* ─── SCROLL TO TOP ──────────────────────────────────── */
+#scroll-top {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  width: 44px; height: 44px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 99;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+#scroll-top.visible { opacity: 1; pointer-events: all; }
+#scroll-top:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,245,212,0.3); }
 
 /* ─── ANIMATIONS ─────────────────────────────────────── */
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }

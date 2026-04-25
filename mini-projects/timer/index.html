@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Timer | Playground</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .timer-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3rem;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+        }
+        #display {
+            font-family: var(--font-mono);
+            font-size: 5rem;
+            color: var(--accent);
+            margin: 1.5rem 0;
+            text-shadow: 0 0 20px var(--accent-dim);
+        }
+        .controls { display: flex; gap: 1rem; justify-content: center; }
+        input {
+            width: 80px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem;
+            border-radius: 6px;
+            text-align: center;
+            font-family: var(--font-mono);
+        }
+        .back-link {
+            position: absolute;
+            top: 2rem; left: 2rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        .back-link:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-link">← Back to Portfolio</a>
+
+    <div class="timer-card">
+        <p class="section-label">Timer</p>
+        <div id="display">00:00</div>
+        <div class="form-group">
+            <input type="number" id="minutes" placeholder="Min" min="0" max="99" value="25">
+        </div>
+        <div class="controls">
+            <button id="start" class="btn btn-primary">Start</button>
+            <button id="reset" class="btn btn-outline">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        let countdown;
+        let timeLeft;
+        const display = document.getElementById('display');
+        const startBtn = document.getElementById('start');
+        const resetBtn = document.getElementById('reset');
+        const minutesInput = document.getElementById('minutes');
+
+        function updateDisplay(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function timer() {
+            clearInterval(countdown);
+            timeLeft = minutesInput.value * 60;
+            updateDisplay(timeLeft);
+
+            if (timeLeft <= 0) return;
+
+            startBtn.disabled = true;
+
+            countdown = setInterval(() => {
+                timeLeft--;
+                updateDisplay(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    alert('Time is up!');
+                    startBtn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener('click', timer);
+        resetBtn.addEventListener('click', () => {
+            clearInterval(countdown);
+            updateDisplay(0);
+            startBtn.disabled = false;
+        });
+    </script>
+</body>
+</html>

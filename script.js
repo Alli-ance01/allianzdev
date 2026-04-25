@@ -1,7 +1,30 @@
 /* ─── NAVBAR: shrink on scroll ───────────────────────── */
 const navbar = document.getElementById('navbar');
+const scrollTopBtn = document.getElementById('scroll-top');
+
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+});
+
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ─── THEME TOGGLE ───────────────────────────────────── */
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// Check for saved theme
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
 });
 
 /* ─── HAMBURGER MENU ─────────────────────────────────── */
@@ -100,3 +123,10 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+
+/* ─── EASTER EGG ─────────────────────────────────────── */
+console.log(
+  "%c🕵️‍♂️ You found the secret console! %c\n\nI'm Timileyin, and I love building cool things for the web. Let's connect and build something awesome together! \n\n📫 timileyinogunderekingmex@gmail.com",
+  "color: #00f5d4; font-size: 20px; font-weight: bold; font-family: 'JetBrains Mono', monospace;",
+  "color: #e2e8f0; font-size: 14px; line-height: 1.5;"
+);
