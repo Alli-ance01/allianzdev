@@ -14,7 +14,9 @@
   <!-- Icons via CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
-<body>
+<body class="no-select">
+  <div id="mouse-glow"></div>
+  <div id="theme-transition-overlay"></div>
 
   <!-- ═══ NAVBAR ═══════════════════════════════════════════ -->
   <nav id="navbar">
@@ -63,12 +65,16 @@
       </p>
 
       <div class="hero-btns">
-        <a href="#projects" class="btn btn-primary">
-          <i class="fa-solid fa-rocket"></i> View My Work
-        </a>
-        <a href="#" class="btn btn-outline" id="resume-btn">
-          <i class="fa-solid fa-file-pdf"></i> Resume
-        </a>
+        <div class="magnetic-wrap">
+          <a href="#projects" class="btn btn-primary magnetic-item">
+            <i class="fa-solid fa-rocket"></i> View My Work
+          </a>
+        </div>
+        <div class="magnetic-wrap">
+          <a href="#" class="btn btn-outline magnetic-item" id="resume-btn">
+            <i class="fa-solid fa-file-pdf"></i> Resume
+          </a>
+        </div>
       </div>
 
     </div>
@@ -350,7 +356,7 @@
         Whether you have an idea, an opportunity, or just want to say hi — my inbox is open.
       </p>
 
-      <form action="https://formspree.io/f/mdayjnrv" method="POST" class="contact-form fade-in">
+      <form action="https://formspree.io/f/mdayjnrv" method="POST" class="contact-form fade-in" id="contactForm">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
@@ -363,10 +369,19 @@
           <label for="message">Message</label>
           <textarea name="message" id="message" class="form-control" placeholder="How can I help you?" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
-          <i class="fa-solid fa-paper-plane"></i> Send Message
-        </button>
+        <div class="magnetic-wrap" style="width: 100%;">
+          <button type="submit" class="btn btn-primary magnetic-item" style="width:100%; justify-content:center;">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+        </div>
       </form>
+
+      <div class="contact-success" id="contactSuccess">
+        <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h3 class="section-title">Message Sent!</h3>
+        <p>Thanks for reaching out, Timileyin will get back to you soon.</p>
+        <button class="btn btn-outline" onclick="resetForm()">Send Another</button>
+      </div>
 
       <div class="contact-btns">
         <a href="mailto:timileyinogunderekingmex@gmail.com" class="btn btn-outline" id="email-btn">

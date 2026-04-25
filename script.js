@@ -11,21 +11,92 @@ scrollTopBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-/* ─── THEME TOGGLE ───────────────────────────────────── */
+/* ─── INTERACTIVE MOUSE GLOW ─────────────────────────── */
+const mouseGlow = document.getElementById('mouse-glow');
+window.addEventListener('mousemove', (e) => {
+  mouseGlow.style.left = e.clientX + 'px';
+  mouseGlow.style.top = e.clientY + 'px';
+});
+
+/* ─── THEME TOGGLE (Advanced) ────────────────────────── */
 const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
+const overlay = document.getElementById('theme-transition-overlay');
 
 // Check for saved theme
 const savedTheme = localStorage.getItem('theme') || 'dark';
 document.documentElement.setAttribute('data-theme', savedTheme);
 
-themeToggle.addEventListener('click', () => {
+themeToggle.addEventListener('click', (e) => {
   const currentTheme = document.documentElement.getAttribute('data-theme');
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
   
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
+  // Set position for circle reveal
+  overlay.style.setProperty('--x', e.clientX + 'px');
+  overlay.style.setProperty('--y', e.clientY + 'px');
+  
+  overlay.classList.add('active');
+  
+  setTimeout(() => {
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  }, 400); // sync with animation
+
+  setTimeout(() => {
+    overlay.classList.remove('active');
+  }, 1200);
 });
+
+/* ─── MAGNETIC BUTTONS ───────────────────────────────── */
+const magneticWraps = document.querySelectorAll('.magnetic-wrap');
+magneticWraps.forEach(wrap => {
+  const item = wrap.querySelector('.magnetic-item');
+  
+  wrap.addEventListener('mousemove', (e) => {
+    const rect = wrap.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    item.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+  });
+  
+  wrap.addEventListener('mouseleave', () => {
+    item.style.transform = `translate(0, 0)`;
+  });
+});
+
+/* ─── CONTACT FORM HANDLING ──────────────────────────── */
+const contactForm = document.getElementById('contactForm');
+const contactSuccess = document.getElementById('contactSuccess');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(contactForm);
+    
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (response.ok) {
+        contactForm.style.display = 'none';
+        contactSuccess.style.display = 'block';
+      } else {
+        alert('Oops! There was a problem submitting your form');
+      }
+    } catch (error) {
+      alert('Oops! There was a problem submitting your form');
+    }
+  });
+}
+
+window.resetForm = function() {
+  contactForm.reset();
+  contactForm.style.display = 'block';
+  contactSuccess.style.display = 'none';
+};
 
 /* ─── HAMBURGER MENU ─────────────────────────────────── */
 const hamburger = document.getElementById('hamburger');
