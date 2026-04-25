@@ -411,12 +411,17 @@ section { position: relative; z-index: 1; padding: 6rem 6%; }
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.5rem 1rem;
+  padding: 1.8rem 1rem;
   text-align: center;
   cursor: default;
-  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  transition: all var(--transition);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
 }
 .skill-card::before {
   content: '';
@@ -426,20 +431,31 @@ section { position: relative; z-index: 1; padding: 6rem 6%; }
   opacity: 0;
   transition: opacity var(--transition);
 }
-.skill-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,245,212,0.1); }
+.skill-card:hover { 
+  border-color: var(--accent); 
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 30px rgba(0,245,212,0.1); 
+  background: rgba(0,245,212,0.02);
+}
 .skill-card:hover::before { opacity: 1; }
-.skill-icon { font-size: 2rem; margin-bottom: 0.6rem; }
-.skill-name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+.skill-icon { 
+  font-size: 2.4rem; 
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.skill-card:hover .skill-icon { transform: scale(1.15) rotate(5deg); }
+.skill-name { font-size: 0.85rem; font-weight: 600; color: var(--text); letter-spacing: 0.5px; }
 .skill-badge {
-  display: inline-block;
+  position: absolute;
+  top: 0.6rem; right: 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--purple);
-  background: rgba(108,99,255,0.12);
-  border: 1px solid rgba(108,99,255,0.25);
-  padding: 0.15rem 0.5rem;
-  border-radius: 99px;
-  margin-top: 0.4rem;
+  font-size: 0.55rem;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* ─── PROJECTS ───────────────────────────────────────── */
