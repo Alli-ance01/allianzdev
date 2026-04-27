@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <!-- Firebase Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div id="hearts-container"></div>
@@ -15,17 +19,34 @@
     <button id="music-toggle" class="music-btn" title="Play Music">
         <i class="fa-solid fa-music"></i>
         <audio id="bg-music" loop>
-            <source src="assets/romantic-track.mp3" type="audio/mpeg">
+            <source src="https://cdn.pixabay.com/audio/2022/02/22/audio_d1e6717a58.mp3" type="audio/mpeg">
         </audio>
     </button>
 
     <div class="container">
+        <!-- Phase 0: Recipient Name Entry -->
+        <div class="phase" id="phase-0">
+            <div class="card">
+                <div class="icon-box pulse" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <h1>Welcome... 🌹</h1>
+                <p>Before we begin, please tell me your name.</p>
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <input type="text" id="recipient-name-input" placeholder="Your beautiful name..." style="padding: 15px; border-radius: 10px; border: 1px solid var(--glass-border); width: 100%; font-size: 1.1rem; text-align: center;">
+                </div>
+                <button class="btn btn-yes" id="start-btn">Start ✨</button>
+            </div>
+        </div>
+
         <!-- Phase 1: Intro -->
-        <div class="phase active" id="phase-1">
-            <div class="card bounce-in">
-                <div class="icon-box pulse"><i class="fa-solid fa-envelope-open-heart"></i></div>
-                <h1>Hey you...</h1>
-                <p>I have a little secret I've been wanting to share with you.</p>
+        <div class="phase" id="phase-1">
+            <div class="card">
+                <div class="icon-box pulse" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;">
+                    <i class="fa-solid fa-envelope-open-heart"></i>
+                </div>
+                <h1>Hey <span class="partner-name">you</span>...</h1>
+                <p>I have a little secret I've been wanting to share with you. Are you ready?</p>
                 <button class="btn btn-yes next-phase" data-next="2">What is it? ✨</button>
             </div>
         </div>
@@ -34,10 +55,10 @@
         <div class="phase" id="phase-2">
             <div class="card">
                 <div class="img-container">
-                    <img src="assets/cute-bear.png" alt="Cute Bear">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1Mnd4bmR4eGdzYTN4eDlyeGZ4eGZ4eGZ4eGZ4eGZ4eGZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat">
                 </div>
                 <h1>You're Amazing!</h1>
-                <p>Every moment I spend with you makes me realize how special you are. You're kind, smart, and beautiful...</p>
+                <p>Every moment I spend with you makes me realize how special you are. You're kind, smart, and absolutely wonderful...</p>
                 <button class="btn btn-yes next-phase" data-next="3">Go on... 🥰</button>
             </div>
         </div>
@@ -46,11 +67,11 @@
         <div class="phase" id="phase-3">
             <div class="card" id="main-card">
                 <div class="img-container">
-                    <img src="assets/question-bear.gif" alt="Asking Bear" id="display-img">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1Mnd4bmR4eGdzYTN4eDlyeGZ4eGZ4eGZ4eGZ4eGZ4eGZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpN7BC/giphy.gif" alt="Asking Cat" id="display-img">
                 </div>
                 
                 <div class="content" id="question-content">
-                    <h1 id="question-text">Will you be my girlfriend? 🌹</h1>
+                    <h1 id="question-text">Will you be my Girlfriend? 🌹</h1>
                     <p id="sub-text">I'd be the luckiest person in the world...</p>
                     
                     <div class="btn-group">
@@ -64,26 +85,29 @@
         <!-- Finale: Love Letter -->
         <div class="phase" id="phase-4">
             <div class="letter-container">
-                <div class="letter">
+                <div id="printable-letter" class="letter">
                     <div class="letter-header">
                         <i class="fa-solid fa-heart"></i>
-                        <span>A Message from Timileyin</span>
+                        <span>A Special Message</span>
                     </div>
                     <div class="letter-body">
                         <h1 class="yay-text">It's Official! 💖✨</h1>
-                        <p>I am so incredibly happy. Thank you for saying yes! You've just made me the happiest guy alive.</p>
-                        <p>I promise to cherish every moment, to listen, to care, and to be your biggest supporter.</p>
-                        <p>Here's to us! 🥂✨</p>
+                        <p>Dearest <span class="partner-name">Partner</span>,</p>
+                        <p>Yay! I am so incredibly happy. Thank you for saying yes! You've just made this the best day of my life.</p>
+                        <p>I promise to cherish every moment, to be your best friend, your partner in crime, and to make you smile every single day.</p>
+                        <p>I love you more than words can express! 🥂💞✨</p>
                         <div class="date-container">
                             <i class="fa-solid fa-calendar-heart"></i>
                             <span id="current-date"></span>
                         </div>
                     </div>
                 </div>
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                    <button class="btn btn-yes" id="print-btn"><i class="fa-solid fa-print"></i> Print Our Letter 🖨️</button>
+                </div>
             </div>
         </div>
     </div>
-
     <script src="./script.js"></script>
 </body>
 </html>
