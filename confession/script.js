@@ -9,8 +9,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase (Compat)
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+if (typeof firebase !== 'undefined') {
+    firebase.initializeApp(firebaseConfig);
+}
+const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
 
 /* ─── INITIALIZATION & URL PARSING ────────────────── */
 const urlParams = new URLSearchParams(window.location.search);
@@ -38,12 +40,13 @@ if (partnerName) {
 
 function showPhase(id) {
     phases.forEach(p => p.classList.remove('active'));
-    const target = document.getElementById(`phase-${id}`);
+    const target = document.getElementById(\`phase-\${id}\`);
     if (target) {
         target.classList.add('active');
-        gsap.from(target.querySelector('.card'), {
-            y: 50, opacity: 0, duration: 0.8, ease: "back.out(1.7)"
-        });
+        gsap.fromTo(target.querySelector('.card'), 
+            { y: 50, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.8, ease: "back.out(1.7)" }
+        );
     }
 }
 
@@ -103,10 +106,11 @@ function handleNoInteraction() {
     noClickCount++;
     
     // Move No Button
-    const maxX = window.innerWidth - noBtn.offsetWidth - 40;
-    const maxY = window.innerHeight - noBtn.offsetHeight - 40;
-    const randomX = Math.max(20, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+    const padding = 40;
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
     
     noBtn.style.position = 'fixed';
     noBtn.style.zIndex = '1000';
@@ -133,45 +137,43 @@ function handleNoInteraction() {
     gsap.fromTo(subText, { scale: 1 }, { scale: 1.2, color: "#ff4d6d", duration: 0.2, yoyo: true, repeat: 1 });
 }
 
-noBtn.addEventListener('mouseover', handleNoInteraction);
-noBtn.addEventListener('click', handleNoInteraction);
+if (noBtn) {
+    noBtn.addEventListener('mouseover', handleNoInteraction);
+    noBtn.addEventListener('click', handleNoInteraction);
+}
 
 /* ─── YES BUTTON SUCCESS ─────────────────────────── */
-yesBtn.addEventListener('click', () => {
-    // Record response in Firebase
-    if (typeof firebase !== 'undefined' && db) {
-        console.log("Attempting to record response for:", partnerName);
-        db.collection("proposals").add({
-            name: partnerName,
-            response: "Yes",
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => {
-            console.log("Success: Response recorded in Firestore!");
-            // alert("Response recorded! Check your dashboard."); // Optional: remove if annoying
-        })
-        .catch(err => {
-            console.error("Firestore Error:", err);
-            alert("Firebase Error: " + err.message + "\n\nPlease check your Firestore Rules (set to Test Mode).");
-        });
-    } else {
-        console.error("Firebase not initialized correctly.");
-        alert("Firebase is not loaded. Please check your internet connection.");
-    }
+if (yesBtn) {
+    yesBtn.addEventListener('click', () => {
+        // Record response in Firebase
+        if (db && partnerName) {
+            db.collection("proposals").add({
+                name: partnerName,
+                response: "Yes",
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => console.log("Success: Response recorded!"))
+            .catch(err => console.error("Firestore Error:", err));
+        }
 
-    const currentPhase = document.getElementById('phase-3');
-    gsap.to(currentPhase.querySelector('.card'), {
-        y: -100, opacity: 0, duration: 0.6, ease: "power4.in", onComplete: () => {
-            showPhase(4);
-            
-            // Set Date
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
-            
-            triggerConfetti();
+        const currentPhase = document.getElementById('phase-3');
+        const card = currentPhase ? currentPhase.querySelector('.card') : null;
+        
+        if (card) {
+            gsap.to(card, {
+                y: -100, opacity: 0, duration: 0.6, ease: "power4.in", onComplete: () => {
+                    showPhase(4);
+                    const dateEl = document.getElementById('current-date');
+                    if (dateEl) {
+                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        dateEl.textContent = new Date().toLocaleDateString('en-US', options);
+                    }
+                    if (typeof confetti === 'function') triggerConfetti();
+                }
+            });
         }
     });
-});
+}
 
 /* ─── PRINTING & UTILITIES ───────────────────────── */
 if (printBtn) {
@@ -194,19 +196,22 @@ function triggerConfetti() {
     }, 250);
 }
 
-musicToggle.addEventListener('click', () => {
-    if (bgMusic.paused) {
-        bgMusic.play();
-        musicToggle.classList.add('playing');
-    } else {
-        bgMusic.pause();
-        musicToggle.classList.remove('playing');
-    }
-});
+if (musicToggle && bgMusic) {
+    musicToggle.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play().catch(e => console.error("Playback failed:", e));
+            musicToggle.classList.add('playing');
+        } else {
+            bgMusic.pause();
+            musicToggle.classList.remove('playing');
+        }
+    });
+}
 
 // Floating Hearts
 function createHeart() {
     const container = document.getElementById('hearts-container');
+    if (!container) return;
     const heart = document.createElement('i');
     heart.classList.add('fa-solid', 'fa-heart', 'heart');
     heart.style.fontSize = Math.random() * 20 + 10 + 'px';
