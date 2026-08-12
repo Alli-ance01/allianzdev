@@ -1,152 +1,244 @@
-/* ─── THE LEDGER · script ────────────────────────────────
-   Restrained interactions: header scroll state, mobile nav,
-   theme toggle, scroll-reveal, active chapter index,
-   contact form handling. No decoration-only motion. */
+/* ══════════════════════════════════════════════════════════
+   THE BLUEPRINT — script.js
+   Cursor · reveals · chapter index · clock · hover previews ·
+   nav · theme · contact · scroll-top
+   ══════════════════════════════════════════════════════════ */
 
-/* ─── Header scroll state & back-to-top ─────────────── */
-const header = document.getElementById('site-header');
-const scrollTopBtn = document.getElementById('scrollTop');
+'use strict';
 
-const onScroll = () => {
-  header.classList.toggle('is-scrolled', window.scrollY > 16);
-  scrollTopBtn.hidden = window.scrollY < 500;
-};
-window.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
+(() => {
+  /* ─── helpers ─────────────────────────────────────────── */
+  const prefersReduced = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
 
-scrollTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+  /* ─── custom cursor ───────────────────────────────────── */
+  if (!isTouchDevice()) {
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+    let rafId = null;
 
-/* ─── Mobile nav ─────────────────────────────────────── */
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
+    const moveCursor = (clientX, clientY) => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        dot.style.left = `${clientX}px`;
+        dot.style.top = `${clientY}px`;
+        ring.style.left = `${clientX}px`;
+        ring.style.top = `${clientY}px`;
+      });
+    };
 
-const closeMenu = () => {
-  hamburger.classList.remove('is-open');
-  navLinks.classList.remove('is-open');
-  hamburger.setAttribute('aria-expanded', 'false');
-};
-const openMenu = () => {
-  hamburger.classList.add('is-open');
-  navLinks.classList.add('is-open');
-  hamburger.setAttribute('aria-expanded', 'true');
-};
+    window.addEventListener('mousemove', (e) => moveCursor(e.clientX, e.clientY), { passive: true });
 
-hamburger.addEventListener('click', () => {
-  if (navLinks.classList.contains('is-open')) closeMenu();
-  else openMenu();
-});
+    document.querySelectorAll('a, button, .work-row').forEach((el) => {
+      el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
+    });
+  }
 
-navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  /* ─── scroll reveal ───────────────────────────────────── */
+  const revealTargets = document.querySelectorAll('.reveal-up');
+  if (!prefersReduced() && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    revealTargets.forEach((el, i) => {
+      el.style.setProperty('--reveal-delay', `${(i % 4) * 70}ms`);
+      revealObserver.observe(el);
+    });
+  } else {
+    revealTargets.forEach((el) => el.classList.add('is-visible'));
+  }
 
-/* Close on Escape */
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && navLinks.classList.contains('is-open')) closeMenu();
-});
+  /* ─── chapter index active state ──────────────────────── */
+  const indexSpans = document.querySelectorAll('.chapter-index span');
+  if (indexSpans.length && !prefersReduced() && 'IntersectionObserver' in window) {
+    const indexObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            indexSpans.forEach((s) => s.classList.toggle('is-active', s.dataset.target === entry.target.id));
+          }
+        });
+      },
+      { threshold: 0.35, rootMargin: '-60px 0px -50% 0px' }
+    );
+    document.querySelectorAll('section.chapter').forEach((sec) => {
+      if (sec.id && sec.id !== 'intro') indexObserver.observe(sec);
+    });
+  }
 
-/* ─── Theme toggle (simple crossfade) ────────────────── */
-const themeToggle = document.getElementById('themeToggle');
-const savedTheme = localStorage.getItem('theme') || 'dark';
-document.documentElement.setAttribute('data-theme', savedTheme);
+  /* ─── header, scroll-top, active nav link ─────────────── */
+  const header = document.getElementById('site-header');
+  const scrollTopBtn = document.getElementById('scrollTop');
 
-themeToggle.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-  document.body.classList.remove('theme-switch');
-  // re-trigger crossfade animation
-  requestAnimationFrame(() => document.body.classList.add('theme-switch'));
-});
+  const onScroll = () => {
+    const y = window.scrollY;
+    if (header) header.classList.toggle('is-scrolled', y > 24);
+    if (scrollTopBtn) scrollTopBtn.toggleAttribute('hidden', y < 500);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-/* ─── Scroll reveal (section-level, subtle) ──────────── */
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (!reducedMotion) {
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
+  scrollTopBtn?.addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: prefersReduced() ? 'auto' : 'smooth' })
+  );
+
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (navAnchors.length && 'IntersectionObserver' in window) {
+    const navObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navAnchors.forEach((a) =>
+              a.classList.toggle('is-active', a.getAttribute('href') === `#${entry.target.id}`)
+            );
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' }
+    );
+    document.querySelectorAll('section.chapter').forEach((ch) => {
+      if (ch.id) navObserver.observe(ch);
+    });
+  }
+
+  /* ─── mobile nav ──────────────────────────────────────── */
+  const hamburger = document.getElementById('hamburger');
+  const navList = document.getElementById('navLinks');
+  if (hamburger && navList) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = navList.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    navList.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navList.classList.contains('is-open')) closeMenu();
+    });
+  }
+  function closeMenu() {
+    navList?.classList.remove('is-open');
+    hamburger?.classList.remove('is-open');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  /* ─── theme toggle (soft crossfade) ───────────────────── */
+  const themeToggle = document.getElementById('themeToggle');
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    document.body.classList.remove('theme-switch');
+    void document.body.offsetWidth; // restart animation
+    document.body.classList.add('theme-switch');
+  };
+  const stored = localStorage.getItem('theme');
+  applyTheme(
+    stored === 'dark' || stored === 'light'
+      ? stored
+      : window.matchMedia('(prefers-color-scheme: light)').matches
+        ? 'light'
+        : 'dark'
+  );
+  themeToggle?.addEventListener('click', () =>
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')
+  );
+
+  /* ─── live clock (hero meta, Lagos time) ──────────────── */
+  const heroClock = document.getElementById('hero-clock');
+  if (heroClock) {
+    const fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Africa/Lagos',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const updateClock = () => {
+      heroClock.textContent = fmt.format(new Date());
+    };
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
+
+  /* ─── footer year ─────────────────────────────────────── */
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ─── hover-reveal previews on work rows ──────────────── */
+  const preview = document.querySelector('.work-preview');
+  if (preview && !isTouchDevice() && !prefersReduced()) {
+    const img = preview.querySelector('img');
+    let raf = null;
+    let x = 0;
+    let y = 0;
+
+    const tick = () => {
+      raf = null;
+      preview.style.left = `${x}px`;
+      preview.style.top = `${y}px`;
+    };
+
+    document.querySelectorAll('.work-row[data-preview]').forEach((row) => {
+      row.addEventListener('mouseenter', () => {
+        img.src = row.dataset.preview;
+        img.alt = `${row.querySelector('.work-title').textContent} preview`;
+        preview.classList.add('is-visible');
+      });
+      row.addEventListener('mousemove', (e) => {
+        x = e.clientX;
+        y = e.clientY - 24;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+      row.addEventListener('mouseleave', () => preview.classList.remove('is-visible'));
+    });
+
+    window.matchMedia('(max-width: 900px)').addEventListener('change', (e) => {
+      if (e.matches) preview.classList.remove('is-visible');
+    });
+  }
+
+  /* ─── contact form (Formspree, accessible feedback) ──── */
+  const form = document.getElementById('contactForm');
+  const successEl = document.getElementById('contactSuccess');
+  const resetBtn = document.getElementById('resetContact');
+
+  if (form && successEl) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          successEl.classList.add('is-shown');
+          resetBtn.focus();
+        } else {
+          throw new Error('submit failed');
+        }
+      } catch {
+        window.open('mailto:timileyinogunderekingmex@gmail.com', '_self');
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-} else {
-  document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
-}
-
-/* ─── Active chapter index (desktop running numbers) ── */
-const indexSpans = document.querySelectorAll('.chapter-index span');
-const chapters = document.querySelectorAll('.chapter');
-
-const indexObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.id;
-      indexSpans.forEach(s => {
-        s.classList.toggle('is-active', s.dataset.target === id);
-      });
-    }
-  });
-}, { threshold: 0.35, rootMargin: '-60px 0px -50% 0px' });
-
-chapters.forEach(ch => {
-  if (ch.id && ch.id !== 'intro') indexObserver.observe(ch);
-});
-
-/* ─── Active nav link on scroll ──────────────────────── */
-const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.id;
-      navAnchors.forEach(a => {
-        a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`);
-      });
-    }
-  });
-}, { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' });
-
-chapters.forEach(ch => { if (ch.id) navObserver.observe(ch); });
-
-/* ─── Contact form (Formspree, accessible feedback) ──── */
-const contactForm = document.getElementById('contactForm');
-const contactSuccess = document.getElementById('contactSuccess');
-const resetBtn = document.getElementById('resetContact');
-
-if (contactForm) {
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(contactForm);
-
-    try {
-      const response = await fetch(contactForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        contactForm.style.display = 'none';
-        contactSuccess.classList.add('is-shown');
-        resetBtn.focus();
-      } else {
-        alert('There was a problem submitting the form. Please email me directly instead.');
-      }
-    } catch (err) {
-      alert('There was a problem submitting the form. Please email me directly instead.');
-    }
-  });
-
-  resetBtn.addEventListener('click', () => {
-    contactForm.reset();
-    contactForm.style.display = 'grid';
-    contactSuccess.classList.remove('is-shown');
-    document.getElementById('name').focus();
-  });
-}
-
-/* ─── Footer year ────────────────────────────────────── */
-document.getElementById('year').textContent = new Date().getFullYear();
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      successEl.classList.remove('is-shown');
+      form.style.display = 'grid';
+      document.getElementById('name').focus();
+    });
+  }
+})();

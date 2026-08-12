@@ -27,11 +27,20 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
 
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Film grain overlay -->
+  <div class="grain" aria-hidden="true"></div>
+  <!-- Warm ambient wash -->
+  <div class="wash" aria-hidden="true"></div>
+
+  <!-- Custom cursor (hoverable elements only, desktop) -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
 
   <!-- Running chapter index, desktop only -->
   <div class="chapter-index" aria-hidden="true">
@@ -49,10 +58,10 @@
       <a href="#intro" class="nav-logo">&lt;<span>Timileyin</span>/&gt;</a>
 
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#stack">Stack</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">01 — About</a></li>
+        <li><a href="#work">02 — Work</a></li>
+        <li><a href="#stack">05 — Stack</a></li>
+        <li><a href="#contact">06 — Contact</a></li>
         <li>
           <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between dark and light theme">
             <i class="fa-solid fa-moon" aria-hidden="true"></i>
@@ -71,47 +80,58 @@
 
     <!-- ═══ 00 — INTRO ═════════════════════════════════════ -->
     <section id="intro" class="chapter">
-      <div class="chapter-meta"><span class="ch-num">00</span><span class="ch-label">Introduction</span></div>
+      <div class="chapter-meta reveal-up"><span class="ch-num">00</span><span class="ch-label">Introduction</span></div>
 
-        <div class="hero-inner reveal">
-        <div class="hero-status" aria-label="Currently available for work">
+      <div class="hero-inner">
+        <div class="hero-status reveal-up" aria-label="Currently available for work">
           <span class="status-dot" aria-hidden="true"></span>Available for projects &amp; collaboration
         </div>
 
         <h1 class="hero-name">
-          Oluwatimileyin<br />Ogundere<span class="hero-period">.</span>
+          <span class="hero-line reveal-up">Oluwatimileyin</span>
+          <span class="hero-line reveal-up hero-name-out">Ogundere<span class="hero-period">.</span></span>
         </h1>
 
-        <p class="hero-role">Fullstack developer in training — building for the web with JavaScript &amp; Firebase.</p>
+        <p class="hero-role reveal-up">Fullstack developer in training — building for the web with JavaScript &amp; Firebase.</p>
 
-        <div class="hero-actions">
+        <div class="hero-actions reveal-up">
           <a href="#work" class="link-arrow">See selected work<i class="fa-solid fa-arrow-down-long" aria-hidden="true"></i></a>
           <a href="#contact" class="link-arrow">Get in touch<i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
         </div>
 
-        <dl class="hero-meta">
-          <dt>Based</dt><dd>Lagos, Nigeria</dd>
+        <dl class="hero-meta reveal-up">
+          <dt>Based</dt><dd>Lagos, Nigeria · <span class="coords">6.5244° N, 3.3792° E</span></dd>
           <dt>Training</dt><dd>SQI College of ICT — Fullstack Development</dd>
-          <dt>Focus</dt><dd>Frontend interfaces &amp; Firebase backends</dd>
+          <dt>Local time</dt><dd><span id="hero-clock">—</span></dd>
         </dl>
       </div>
     </section>
 
+    <!-- Marquee strip -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>JavaScript</span><em>·</em><span>Firebase</span><em>·</em><span>React (learning)</span><em>·</em><span>Node.js (learning)</span><em>·</em><span>HTML5 / CSS3</span><em>·</em><span>Tailwind</span><em>·</em><span>Git &amp; GitHub</span><em>·</em>
+        <span>JavaScript</span><em>·</em><span>Firebase</span><em>·</em><span>React (learning)</span><em>·</em><span>Node.js (learning)</span><em>·</em><span>HTML5 / CSS3</span><em>·</em><span>Tailwind</span><em>·</em><span>Git &amp; GitHub</span><em>·</em>
+      </div>
+    </div>
+
     <!-- ═══ 01 — ABOUT ═════════════════════════════════════ -->
     <section id="about" class="chapter">
-      <div class="chapter-meta"><span class="ch-num">01</span><span class="ch-label">About</span></div>
+      <div class="chapter-meta reveal-up"><span class="ch-num">01</span><span class="ch-label">About</span></div>
 
-      <div class="two-col reveal">
+      <div class="ghost-num" aria-hidden="true">01</div>
+
+      <div class="two-col">
         <div>
-          <h2 class="section-heading">Who I am</h2>
-          <div class="essay">
+          <h2 class="section-heading reveal-up">Who I am</h2>
+          <div class="essay reveal-up">
             <p>I'm <strong>Timileyin</strong>, a developer in training at <strong>SQI College of ICT</strong> in Lagos, working toward fullstack web development. I started with the fundamentals — semantic HTML, CSS, modern JavaScript — and I've spent the last year applying them to real projects rather than tutorials.</p>
             <p>The projects on this page are evidence of that: a quiz platform with live leaderboards, a church management system, an emergency response portal, and an e-commerce storefront. Every one of them ships with real authentication and a real database.</p>
             <p>I'm in it for the craft — clean code, interfaces that behave the way users expect, and products that work end to end.</p>
           </div>
         </div>
 
-        <div>
+        <div class="reveal-up">
           <h3 class="facts-title">The facts</h3>
           <dl class="facts">
             <dt>Location</dt><dd>Lagos, Nigeria</dd>
@@ -126,14 +146,14 @@
 
     <!-- ═══ 02 — WORK ══════════════════════════════════════ -->
     <section id="work" class="chapter">
-      <div class="chapter-meta"><span class="ch-num">02</span><span class="ch-label">Selected Work</span></div>
+      <div class="chapter-meta reveal-up"><span class="ch-num">02</span><span class="ch-label">Selected Work</span></div>
 
-      <h2 class="section-heading reveal">Projects that prove the craft</h2>
+      <h2 class="section-heading reveal-up">Projects that prove the craft</h2>
 
       <!-- Featured -->
-      <article class="work-featured reveal">
+      <article class="work-featured reveal-up">
         <div class="work-featured-media">
-          <img src="assets/img/projects/image.png" alt="AllianzQuiz — competitive quiz app with live leaderboards" loading="eager" />
+          <img src="assets/img/projects/image.png" alt="AllianzQuiz — competitive quiz app with live leaderboards" />
         </div>
         <div class="work-featured-text">
           <div class="work-index"><span class="mono">Featured</span></div>
@@ -147,9 +167,9 @@
         </div>
       </article>
 
-      <!-- List -->
-      <ol class="work-list reveal" reversed>
-        <li class="work-row">
+      <!-- Hover-reveal list -->
+      <ol class="work-list" reversed>
+        <li class="work-row" data-preview="assets/img/projects/junior-church.png">
           <span class="row-num">5</span>
           <div class="row-body">
             <div class="row-head">
@@ -164,7 +184,7 @@
           </div>
         </li>
 
-        <li class="work-row">
+        <li class="work-row" data-preview="assets/img/projects/safereach.png">
           <span class="row-num">4</span>
           <div class="row-body">
             <div class="row-head">
@@ -179,7 +199,7 @@
           </div>
         </li>
 
-        <li class="work-row">
+        <li class="work-row" data-preview="assets/img/projects/alliance-store.png">
           <span class="row-num">3</span>
           <div class="row-body">
             <div class="row-head">
@@ -194,7 +214,7 @@
           </div>
         </li>
 
-        <li class="work-row">
+        <li class="work-row" data-preview="assets/img/projects/contentspark.png">
           <span class="row-num">2</span>
           <div class="row-body">
             <div class="row-head">
@@ -209,7 +229,7 @@
           </div>
         </li>
 
-        <li class="work-row">
+        <li class="work-row" data-preview="assets/img/projects/conference.png">
           <span class="row-num">1</span>
           <div class="row-body">
             <div class="row-head">
@@ -226,13 +246,18 @@
       </ol>
     </section>
 
+    <!-- Floating preview (populated by JS) -->
+    <div class="work-preview" aria-hidden="true">
+      <img src="" alt="" />
+    </div>
+
     <!-- ═══ 03 — EXPERIMENTS ═══════════════════════════════ -->
     <section id="experiments" class="chapter">
-      <div class="chapter-meta"><span class="ch-num">03</span><span class="ch-label">Experiments</span></div>
+      <div class="chapter-meta reveal-up"><span class="ch-num">03</span><span class="ch-label">Experiments</span></div>
 
-      <h2 class="section-heading reveal">Small builds, quick iterations</h2>
+      <h2 class="section-heading reveal-up">Small builds, quick iterations</h2>
 
-      <ul class="exp-list reveal">
+      <ul class="exp-list reveal-up">
         <li>
           <span class="exp-name">Custom Timer</span>
           <span class="exp-desc">Focus timer with custom intervals and sound notifications</span>
@@ -253,11 +278,11 @@
 
     <!-- ═══ 04 — JOURNEY ═══════════════════════════════════ -->
     <section id="journey" class="chapter">
-      <div class="chapter-meta"><span class="ch-num">04</span><span class="ch-label">Journey</span></div>
+      <div class="chapter-meta reveal-up"><span class="ch-num">04</span><span class="ch-label">Journey</span></div>
 
-      <h2 class="section-heading reveal">Experience &amp; education</h2>
+      <h2 class="section-heading reveal-up">Experience &amp; education</h2>
 
-      <ol class="ledger reveal">
+      <ol class="ledger reveal-up">
         <li>
           <time class="mono" datetime="2026">Present</time>
           <div>
@@ -284,11 +309,11 @@
 
     <!-- ═══ 05 — STACK ═════════════════════════════════════ -->
     <section id="stack" class="chapter">
-      <div class="chapter-meta"><span class="ch-num">05</span><span class="ch-label">Stack</span></div>
+      <div class="chapter-meta reveal-up"><span class="ch-num">05</span><span class="ch-label">Stack</span></div>
 
-      <h2 class="section-heading reveal">What I work with</h2>
+      <h2 class="section-heading reveal-up">What I work with</h2>
 
-      <div class="stack-grid reveal">
+      <div class="stack-grid reveal-up">
         <div class="stack-group">
           <h3>Core</h3>
           <ul class="stack-list">
@@ -320,20 +345,20 @@
         </div>
       </div>
 
-      <p class="stack-note">I build with plain HTML, CSS, and JavaScript first — frameworks come in when the problem calls for them.</p>
+      <p class="stack-note reveal-up">I build with plain HTML, CSS, and JavaScript first — frameworks come in when the problem calls for them.</p>
     </section>
 
     <!-- ═══ 06 — CONTACT ═══════════════════════════════════ -->
     <section id="contact" class="chapter">
-      <div class="chapter-meta"><span class="ch-num">06</span><span class="ch-label">Contact</span></div>
+      <div class="chapter-meta reveal-up"><span class="ch-num">06</span><span class="ch-label">Contact</span></div>
 
-      <div class="contact-inner reveal">
-        <h2 class="contact-heading">Let's build something<br />that works.</h2>
-        <p class="contact-lede">New project, internship, or collaboration — the inbox is open and I reply.</p>
+      <div class="contact-inner">
+        <h2 class="contact-heading reveal-up">Let's build something<br />that works.</h2>
+        <p class="contact-lede reveal-up">New project, internship, or collaboration — the inbox is open and I reply.</p>
 
-        <a href="mailto:timileyinogunderekingmex@gmail.com" class="contact-email">timileyinogunderekingmex@gmail.com</a>
+        <a href="mailto:timileyinogunderekingmex@gmail.com" class="contact-email reveal-up">timileyinogunderekingmex@gmail.com</a>
 
-        <div class="contact-columns">
+        <div class="contact-columns reveal-up">
           <form action="https://formspree.io/f/mdayjnrv" method="POST" class="contact-form" id="contactForm">
             <div class="form-group">
               <label for="name">Name</label>
@@ -369,10 +394,13 @@
 
   </main>
 
-  <!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+  <!-- ═══ FOOTER / COLOPHON ════════════════════════════════ -->
   <footer>
     <div class="footer-inner">
-      <span class="mono">&lt;Timileyin/&gt;</span>
+      <div class="footer-brand">
+        <span class="footer-outline" aria-hidden="true">Ogundere</span>
+        <span class="mono">&lt;Timileyin/&gt;</span>
+      </div>
       <p>Designed &amp; built by Oluwatimileyin Ogundere · <span id="year"></span></p>
     </div>
   </footer>
