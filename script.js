@@ -1,203 +1,152 @@
-/* ─── NAVBAR: shrink on scroll ───────────────────────── */
-const navbar = document.getElementById('navbar');
-const scrollTopBtn = document.getElementById('scroll-top');
+/* ─── THE LEDGER · script ────────────────────────────────
+   Restrained interactions: header scroll state, mobile nav,
+   theme toggle, scroll-reveal, active chapter index,
+   contact form handling. No decoration-only motion. */
 
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 40);
-  scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
-});
+/* ─── Header scroll state & back-to-top ─────────────── */
+const header = document.getElementById('site-header');
+const scrollTopBtn = document.getElementById('scrollTop');
+
+const onScroll = () => {
+  header.classList.toggle('is-scrolled', window.scrollY > 16);
+  scrollTopBtn.hidden = window.scrollY < 500;
+};
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 
 scrollTopBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-/* ─── INTERACTIVE MOUSE GLOW ─────────────────────────── */
-const mouseGlow = document.getElementById('mouse-glow');
-window.addEventListener('mousemove', (e) => {
-  mouseGlow.style.left = e.clientX + 'px';
-  mouseGlow.style.top = e.clientY + 'px';
+/* ─── Mobile nav ─────────────────────────────────────── */
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+const closeMenu = () => {
+  hamburger.classList.remove('is-open');
+  navLinks.classList.remove('is-open');
+  hamburger.setAttribute('aria-expanded', 'false');
+};
+const openMenu = () => {
+  hamburger.classList.add('is-open');
+  navLinks.classList.add('is-open');
+  hamburger.setAttribute('aria-expanded', 'true');
+};
+
+hamburger.addEventListener('click', () => {
+  if (navLinks.classList.contains('is-open')) closeMenu();
+  else openMenu();
 });
 
-/* ─── THEME TOGGLE (Advanced) ────────────────────────── */
-const themeToggle = document.getElementById('themeToggle');
-const overlay = document.getElementById('theme-transition-overlay');
+navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
-// Check for saved theme
+/* Close on Escape */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navLinks.classList.contains('is-open')) closeMenu();
+});
+
+/* ─── Theme toggle (simple crossfade) ────────────────── */
+const themeToggle = document.getElementById('themeToggle');
 const savedTheme = localStorage.getItem('theme') || 'dark';
 document.documentElement.setAttribute('data-theme', savedTheme);
 
-themeToggle.addEventListener('click', (e) => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  // Set position for circle reveal
-  overlay.style.setProperty('--x', e.clientX + 'px');
-  overlay.style.setProperty('--y', e.clientY + 'px');
-  
-  overlay.classList.add('active');
-  
-  setTimeout(() => {
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  }, 400); // sync with animation
-
-  setTimeout(() => {
-    overlay.classList.remove('active');
-  }, 1200);
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.body.classList.remove('theme-switch');
+  // re-trigger crossfade animation
+  requestAnimationFrame(() => document.body.classList.add('theme-switch'));
 });
 
-/* ─── MAGNETIC BUTTONS ───────────────────────────────── */
-const magneticWraps = document.querySelectorAll('.magnetic-wrap');
-magneticWraps.forEach(wrap => {
-  const item = wrap.querySelector('.magnetic-item');
-  
-  wrap.addEventListener('mousemove', (e) => {
-    const rect = wrap.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    
-    item.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+/* ─── Scroll reveal (section-level, subtle) ──────────── */
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reducedMotion) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+}
+
+/* ─── Active chapter index (desktop running numbers) ── */
+const indexSpans = document.querySelectorAll('.chapter-index span');
+const chapters = document.querySelectorAll('.chapter');
+
+const indexObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      indexSpans.forEach(s => {
+        s.classList.toggle('is-active', s.dataset.target === id);
+      });
+    }
   });
-  
-  wrap.addEventListener('mouseleave', () => {
-    item.style.transform = `translate(0, 0)`;
-  });
+}, { threshold: 0.35, rootMargin: '-60px 0px -50% 0px' });
+
+chapters.forEach(ch => {
+  if (ch.id && ch.id !== 'intro') indexObserver.observe(ch);
 });
 
-/* ─── CONTACT FORM HANDLING ──────────────────────────── */
+/* ─── Active nav link on scroll ──────────────────────── */
+const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navAnchors.forEach(a => {
+        a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`);
+      });
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' });
+
+chapters.forEach(ch => { if (ch.id) navObserver.observe(ch); });
+
+/* ─── Contact form (Formspree, accessible feedback) ──── */
 const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
+const resetBtn = document.getElementById('resetContact');
 
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(contactForm);
-    
+
     try {
       const response = await fetch(contactForm.action, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
       });
-      
+
       if (response.ok) {
         contactForm.style.display = 'none';
-        contactSuccess.style.display = 'block';
+        contactSuccess.classList.add('is-shown');
+        resetBtn.focus();
       } else {
-        alert('Oops! There was a problem submitting your form');
+        alert('There was a problem submitting the form. Please email me directly instead.');
       }
-    } catch (error) {
-      alert('Oops! There was a problem submitting your form');
+    } catch (err) {
+      alert('There was a problem submitting the form. Please email me directly instead.');
     }
+  });
+
+  resetBtn.addEventListener('click', () => {
+    contactForm.reset();
+    contactForm.style.display = 'grid';
+    contactSuccess.classList.remove('is-shown');
+    document.getElementById('name').focus();
   });
 }
 
-window.resetForm = function() {
-  contactForm.reset();
-  contactForm.style.display = 'block';
-  contactSuccess.style.display = 'none';
-};
-
-/* ─── HAMBURGER MENU ─────────────────────────────────── */
-const hamburger = document.getElementById('hamburger');
-const navLinks  = document.getElementById('navLinks');
-
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  navLinks.classList.toggle('open');
-});
-
-// Close menu when a link is clicked
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    navLinks.classList.remove('open');
-  });
-});
-
-/* ─── TYPEWRITER EFFECT ──────────────────────────────── */
-const phrases = [
-  'Fullstack Dev in Training.',
-  'Building for the Web.',
-  'Firebase Enthusiast.',
-  'Problem Solver.',
-  'Open to Opportunities.',
-];
-
-let phraseIndex = 0;
-let charIndex   = 0;
-let deleting    = false;
-const typeEl    = document.getElementById('typewriter');
-
-function type() {
-  const current = phrases[phraseIndex];
-
-  if (!deleting) {
-    typeEl.textContent = current.slice(0, charIndex + 1);
-    charIndex++;
-    if (charIndex === current.length) {
-      deleting = true;
-      setTimeout(type, 1800); // pause before deleting
-      return;
-    }
-    setTimeout(type, 65);
-  } else {
-    typeEl.textContent = current.slice(0, charIndex - 1);
-    charIndex--;
-    if (charIndex === 0) {
-      deleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      setTimeout(type, 300);
-      return;
-    }
-    setTimeout(type, 35);
-  }
-}
-
-type();
-
-/* ─── SCROLL FADE-IN ANIMATIONS ──────────────────────── */
-const fadeEls = document.querySelectorAll('.fade-in');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      // Stagger siblings inside the same section
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 120);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
-fadeEls.forEach(el => observer.observe(el));
-
-/* ─── FOOTER YEAR ────────────────────────────────────── */
+/* ─── Footer year ────────────────────────────────────── */
 document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ─── ACTIVE NAV LINK ON SCROLL ──────────────────────── */
-const sections = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav-links a');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(sec => {
-    if (window.scrollY >= sec.offsetTop - 120) {
-      current = sec.getAttribute('id');
-    }
-  });
-  navAnchors.forEach(a => {
-    a.style.color = '';
-    if (a.getAttribute('href') === `#${current}`) {
-      a.style.color = 'var(--accent)';
-    }
-  });
-});
-
-/* ─── EASTER EGG ─────────────────────────────────────── */
-console.log(
-  "%c🕵️‍♂️ You found the secret console! %c\n\nI'm Timileyin, and I love building cool things for the web. Let's connect and build something awesome together! \n\n📫 timileyinogunderekingmex@gmail.com",
-  "color: #00f5d4; font-size: 20px; font-weight: bold; font-family: 'JetBrains Mono', monospace;",
-  "color: #e2e8f0; font-size: 14px; line-height: 1.5;"
-);

@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Oluwatimileyin Ogundere — Fullstack Developer</title>
-  <meta name="description" content="Personal portfolio of Oluwatimileyin Ogundere — a fullstack developer in training at SQI College of ICT, building for the web with HTML, CSS, JavaScript, Firebase and more." />
+  <meta name="description" content="Personal portfolio of Oluwatimileyin Ogundere — a fullstack developer in training at SQI College of ICT, building web applications with HTML, CSS, JavaScript, and Firebase." />
   <meta name="author" content="Oluwatimileyin Ogundere" />
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://allianzdev.vercel.app/" />
@@ -25,492 +25,360 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
-<body class="no-select">
-  <div id="mouse-glow"></div>
-  <div id="theme-transition-overlay"></div>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Running chapter index, desktop only -->
+  <div class="chapter-index" aria-hidden="true">
+    <span data-target="about">01</span>
+    <span data-target="work">02</span>
+    <span data-target="experiments">03</span>
+    <span data-target="journey">04</span>
+    <span data-target="stack">05</span>
+    <span data-target="contact">06</span>
+  </div>
 
   <!-- ═══ NAVBAR ═══════════════════════════════════════════ -->
-  <nav id="navbar">
-    <a href="#hero" class="nav-logo">&lt;<span>Timileyin</span>/&gt;</a>
+  <header id="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="#intro" class="nav-logo">&lt;<span>Timileyin</span>/&gt;</a>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
-      <li>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-          <i class="fa-solid fa-moon"></i>
-          <i class="fa-solid fa-sun"></i>
-        </button>
-      </li>
-    </ul>
-
-    <div class="hamburger" id="hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </div>
-  </nav>
-
-  <!-- ═══ HERO ══════════════════════════════════════════════ -->
-  <section id="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-
-      <div class="hero-tag">
-        <span class="dot"></span>
-        Available for projects &amp; collabs
-      </div>
-
-      <h1 class="hero-name">
-        <span class="first">Oluwatimileyin</span><br>
-        <span class="last">Ogundere.</span>
-      </h1>
-
-      <p class="hero-role">
-        &gt;&nbsp;<span id="typewriter"></span><span class="cursor"></span>
-      </p>
-
-      <p class="hero-desc">
-        I'm a passionate developer learning to build full-stack web experiences.
-        I love writing clean code, solving real problems, and shipping things that work.
-      </p>
-
-      <div class="hero-btns">
-        <div class="magnetic-wrap">
-          <a href="#projects" class="btn btn-primary magnetic-item">
-            <i class="fa-solid fa-rocket"></i> View My Work
-          </a>
-        </div>
-        <div class="magnetic-wrap">
-          <a href="#" class="btn btn-outline magnetic-item" id="resume-btn">
-            <i class="fa-solid fa-file-pdf"></i> Resume
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="scroll-hint">
-      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="1" y="1" width="14" height="22" rx="7"/>
-        <line x1="8" y1="5" x2="8" y2="10"/>
-      </svg>
-      scroll
-    </div>
-  </section>
-
-  <!-- ═══ ABOUT ══════════════════════════════════════════════ -->
-  <section id="about">
-    <div class="fade-in">
-      <p class="section-label">// about me</p>
-      <h2 class="section-title">Who I Am</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="about-grid fade-in">
-      <div class="about-text">
-        <p>
-          Hey! I'm <strong>Timileyin</strong> — a self-driven developer currently learning at <strong>SQI College of ICT</strong>, on a mission to
-          master fullstack web development. I started from the fundamentals and have been
-          consistently building real projects that solve real problems.
-        </p>
-        <p>
-          I enjoy the whole process — from wireframing an idea to deploying the final product.
-          Whether it's crafting a pixel-perfect UI or wiring up a Firebase backend, I'm in it for
-          the <strong>craft</strong>.
-        </p>
-        
-        <div class="about-currently">
-          <div class="label">// currently</div>
-          <p>📚 Learning React &amp; Node.js &nbsp;|&nbsp; 🔥 Building with Firebase &nbsp;|&nbsp; 🚀 Open to opportunities</p>
-        </div>
-
-        <div class="about-socials">
-          <a href="https://github.com/Alli-ance01" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/timileyinogundere" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="mailto:timileyinogunderekingmex@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
-        </div>
-      </div>
-
-      <div class="about-stats">
-        <div class="stat-card">
-          <div class="num">5+</div>
-          <div class="desc">Projects Shipped</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">7+</div>
-          <div class="desc">Technologies</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">∞</div>
-          <div class="desc">Coffee Consumed</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">1</div>
-          <div class="desc">Goal: Fullstack</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ EXPERIENCE ═════════════════════════════════════════ -->
-  <section id="experience">
-    <div class="fade-in">
-      <p class="section-label">// journey</p>
-      <h2 class="section-title">Experience &amp; Education</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="timeline fade-in">
-      
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">Present</div>
-        <div class="timeline-content">
-          <h3>Fullstack Developer in Training</h3>
-          <p class="timeline-org">SQI College of ICT</p>
-          <p>Currently mastering advanced concepts in Fullstack development, focusing on React.js and building scalable backends with Firebase and Node.js.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">Late 2025 - 2026</div>
-        <div class="timeline-content">
-          <h3>Building Major Projects</h3>
-          <p class="timeline-org">Project Development Phase</p>
-          <p>Developed core projects like <a href="#projects"><b>AllianzQuiz</b></a> and <a href="#projects"><b>Alliance Store</b></a>, applying Firebase Authentication, Firestore, and complex JS logic to solve real-world problems.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">2025</div>
-        <div class="timeline-content">
-          <h3>Foundations &amp; Web Basics</h3>
-          <p class="timeline-org">The Beginning</p>
-          <p>Started the journey at SQI, mastering the semantic foundations of HTML5, the art of styling with CSS3/Tailwind, and the logic of Modern JavaScript (ES6+).</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══ SKILLS ═════════════════════════════════════════════ -->
-  <section id="skills">
-    <div class="fade-in">
-      <p class="section-label">// tech stack</p>
-      <h2 class="section-title">What I Work With</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="skills-grid fade-in">
-
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-html5-plain colored"></i></div>
-        <div class="skill-name">HTML5</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-css3-plain colored"></i></div>
-        <div class="skill-name">CSS3</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-tailwindcss-original colored"></i></div>
-        <div class="skill-name">Tailwind</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-javascript-plain colored"></i></div>
-        <div class="skill-name">JavaScript</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-react-original colored"></i></div>
-        <div class="skill-name">React</div>
-        <div class="skill-badge">Learning</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-nodejs-plain colored"></i></div>
-        <div class="skill-name">Node.js</div>
-        <div class="skill-badge">Learning</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-firebase-plain colored"></i></div>
-        <div class="skill-name">Firebase</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-git-plain colored"></i></div>
-        <div class="skill-name">Git</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon"><i class="devicon-github-original"></i></div>
-        <div class="skill-name">GitHub</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══ PROJECTS ════════════════════════════════════════════ -->
-  <section id="projects">
-    <div class="fade-in">
-      <p class="section-label">// my work</p>
-      <h2 class="section-title">Major Projects</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="projects-grid fade-in">
-
-      <!-- AllianzQuiz -->
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/img/projects/image.png" alt="AllianzQuiz Mockup">
-        </div>
-        <div class="project-content">
-          <div class="project-header">
-            <div class="project-name">AllianzQuiz</div>
-            <div class="project-links">
-              <a href="https://github.com/Alli-ance01/AllianzQuiz" target="_blank" rel="noopener" title="GitHub" aria-label="AllianzQuiz GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="https://allianz-quiz.vercel.app" target="_blank" rel="noopener" title="Live Demo" aria-label="AllianzQuiz Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-          </div>
-          <p class="project-desc">
-            A competitive quiz web app featuring real-time leaderboards, timed rounds,
-            score tracking, and an admin panel — built to challenge and engage users.
-          </p>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Firebase</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Almighty Junior Church -->
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/img/projects/Screenshot 2026-06-20 162513.png" alt="Junior Church Mockup">
-        </div>
-        <div class="project-content">
-          <div class="project-header">
-            <div class="project-name">Junior Church <span class="wip-badge">WIP</span></div>
-            <div class="project-links">
-              <a href="https://github.com/Alli-ance01/Junior-Church" target="_blank" rel="noopener" title="GitHub" aria-label="Junior Church GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="https://almightyjuniorchurch.vercel.app" target="_blank" rel="noopener" title="Live Demo" aria-label="Junior Church Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-          </div>
-          <p class="project-desc">
-            A full-featured church management web app with authentication, member profiles,
-            event RSVPs, sermon notes, volunteer sign-ups, and a super admin dashboard.
-          </p>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Firebase</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- SafeReach -->
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/img/projects/Screenshot 2026-06-20 162454.png" alt="SafeReach Mockup">
-        </div>
-        <div class="project-content">
-          <div class="project-header">
-            <div class="project-name">SafeReach <span class="wip-badge">WIP</span></div>
-            <div class="project-links">
-              <a href="https://github.com/Alli-ance01/safereach" target="_blank" rel="noopener" title="GitHub" aria-label="SafeReach GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="https://safereach-ng.vercel.app" target="_blank" rel="noopener" title="Live Demo" aria-label="SafeReach Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-          </div>
-          <p class="project-desc">
-            A location-based emergency response portal connecting Nigerian citizens with security forces. Features automated location detection and quick-dial buttons.
-          </p>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">Tailwind</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Firebase</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alliance Store -->
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/img/projects/Screenshot 2026-06-20 162758.png" alt="Alliance Store Mockup">
-        </div>
-        <div class="project-content">
-          <div class="project-header">
-            <div class="project-name">Alliance Store</div>
-            <div class="project-links">
-              <a href="https://github.com/Alli-ance01/Alliance-Store" target="_blank" rel="noopener" title="GitHub" aria-label="Alliance Store GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="https://alliance-store.vercel.app" target="_blank" rel="noopener" title="Live Demo" aria-label="Alliance Store Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-          </div>
-          <p class="project-desc">
-            A clean and functional e-commerce storefront where users can browse products,
-            manage a cart, and complete purchases — built with a smooth shopping experience.
-          </p>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Firebase</span>
-          </div>
-        </div>
-      </div>
-
-       <!-- ContentSpark -->
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/img/projects/Screenshot 2026-06-20 154015.png" alt="ContentSpark Mockup">
-        </div>
-        <div class="project-content">
-          <div class="project-header">
-            <div class="project-name">ContentSpark</div>
-            <div class="project-links">
-              <a href="https://github.com/Alli-ance01/content-spark" target="_blank" rel="noopener" title="GitHub" aria-label="Junior Church GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="https://content-spark-mu.vercel.app" target="_blank" rel="noopener" title="Live Demo" aria-label="ContentSpark Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-          </div>
-          <p class="project-desc">
-           A productivity platform for creators to store, organize, and track content ideas seamlessly.
-           Features Firebase-powered real-time synchronization and n8n automations for reminders and workflow management.
-          </p>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Firebase</span>
-            <span class="tag">n8n Automation</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- WayUp Conference -->
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/img/projects/Screenshot 2026-06-20 162039.png" alt="WayUp Conference Mockup">
-        </div>
-        <div class="project-content">
-          <div class="project-header">
-            <div class="project-name">WayUp Conference</div>
-            <div class="project-links">
-              <a href="https://github.com/Alli-ance01/WayUp-Conference" target="_blank" rel="noopener" title="GitHub" aria-label="WayUp Conference GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="https://wayupconference.vercel.app" target="_blank" rel="noopener" title="Live Demo" aria-label="WayUp Conference Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-          </div>
-          <p class="project-desc">
-            A modern conference landing page with event details, speaker highlights,
-            schedule listings, and registration — designed to inform and convert attendees.
-          </p>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══ MINI PROJECTS ═══════════════════════════════════════ -->
-  <section id="mini-projects">
-    <div class="fade-in">
-      <p class="section-label">// playground</p>
-      <h2 class="section-title">Mini Projects</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="mini-grid fade-in">
-      
-      <div class="mini-card">
-        <div class="mini-icon">⏱️</div>
-        <div class="mini-name">Custom Timer</div>
-        <p class="mini-desc">A focus timer with customizable intervals and sound notifications.</p>
-        <a href="mini-projects/timer/index.html" class="mini-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-
-      <div class="mini-card">
-        <div class="mini-icon">🎨</div>
-        <div class="mini-name">Color Palette Gen</div>
-        <p class="mini-desc">Generate beautiful color schemes with a single click.</p>
-        <a href="mini-projects/palette/index.html" class="mini-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-
-      <div class="mini-card">
-        <div class="mini-icon">📝</div>
-        <div class="mini-name">Markdown Previewer</div>
-        <p class="mini-desc">Real-time markdown editor and renderer for quick notes.</p>
-        <a href="mini-projects/markdown/index.html" class="mini-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══ CONTACT ══════════════════════════════════════════════ -->
-  <section id="contact">
-    <div class="contact-inner fade-in">
-      <p class="section-label">// get in touch</p>
-      <h2 class="section-title">Let's Connect</h2>
-      <div class="section-line" style="margin:1rem auto 2rem;"></div>
-      <p>
-        I'm always open to new projects, collaborations, or just a good tech conversation.
-        Whether you have an idea, an opportunity, or just want to say hi — my inbox is open.
-      </p>
-
-      <form action="https://formspree.io/f/mdayjnrv" method="POST" class="contact-form fade-in" id="contactForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea name="message" id="message" class="form-control" placeholder="How can I help you?" required></textarea>
-        </div>
-        <div class="magnetic-wrap" style="width: 100%;">
-          <button type="submit" class="btn btn-primary magnetic-item" style="width:100%; justify-content:center;">
-            <i class="fa-solid fa-paper-plane"></i> Send Message
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between dark and light theme">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            <i class="fa-solid fa-sun" aria-hidden="true"></i>
           </button>
+        </li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ═══ 00 — INTRO ═════════════════════════════════════ -->
+    <section id="intro" class="chapter">
+      <div class="chapter-meta"><span class="ch-num">00</span><span class="ch-label">Introduction</span></div>
+
+        <div class="hero-inner reveal">
+        <div class="hero-status" aria-label="Currently available for work">
+          <span class="status-dot" aria-hidden="true"></span>Available for projects &amp; collaboration
         </div>
-      </form>
 
-      <div class="contact-success" id="contactSuccess">
-        <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
-        <h3 class="section-title">Message Sent!</h3>
-        <p>Thanks for reaching out, Timileyin will get back to you soon.</p>
-        <button class="btn btn-outline" onclick="resetForm()">Send Another</button>
+        <h1 class="hero-name">
+          Oluwatimileyin<br />Ogundere<span class="hero-period">.</span>
+        </h1>
+
+        <p class="hero-role">Fullstack developer in training — building for the web with JavaScript &amp; Firebase.</p>
+
+        <div class="hero-actions">
+          <a href="#work" class="link-arrow">See selected work<i class="fa-solid fa-arrow-down-long" aria-hidden="true"></i></a>
+          <a href="#contact" class="link-arrow">Get in touch<i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+        </div>
+
+        <dl class="hero-meta">
+          <dt>Based</dt><dd>Lagos, Nigeria</dd>
+          <dt>Training</dt><dd>SQI College of ICT — Fullstack Development</dd>
+          <dt>Focus</dt><dd>Frontend interfaces &amp; Firebase backends</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ═══ 01 — ABOUT ═════════════════════════════════════ -->
+    <section id="about" class="chapter">
+      <div class="chapter-meta"><span class="ch-num">01</span><span class="ch-label">About</span></div>
+
+      <div class="two-col reveal">
+        <div>
+          <h2 class="section-heading">Who I am</h2>
+          <div class="essay">
+            <p>I'm <strong>Timileyin</strong>, a developer in training at <strong>SQI College of ICT</strong> in Lagos, working toward fullstack web development. I started with the fundamentals — semantic HTML, CSS, modern JavaScript — and I've spent the last year applying them to real projects rather than tutorials.</p>
+            <p>The projects on this page are evidence of that: a quiz platform with live leaderboards, a church management system, an emergency response portal, and an e-commerce storefront. Every one of them ships with real authentication and a real database.</p>
+            <p>I'm in it for the craft — clean code, interfaces that behave the way users expect, and products that work end to end.</p>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="facts-title">The facts</h3>
+          <dl class="facts">
+            <dt>Location</dt><dd>Lagos, Nigeria</dd>
+            <dt>Education</dt><dd>SQI College of ICT, Fullstack Track</dd>
+            <dt>Current focus</dt><dd>React &amp; Node.js, on top of Firebase</dd>
+            <dt>Shipped projects</dt><dd>Six — all linked below</dd>
+            <dt>Status</dt><dd>Open to projects, internships &amp; collabs</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 02 — WORK ══════════════════════════════════════ -->
+    <section id="work" class="chapter">
+      <div class="chapter-meta"><span class="ch-num">02</span><span class="ch-label">Selected Work</span></div>
+
+      <h2 class="section-heading reveal">Projects that prove the craft</h2>
+
+      <!-- Featured -->
+      <article class="work-featured reveal">
+        <div class="work-featured-media">
+          <img src="assets/img/projects/image.png" alt="AllianzQuiz — competitive quiz app with live leaderboards" loading="eager" />
+        </div>
+        <div class="work-featured-text">
+          <div class="work-index"><span class="mono">Featured</span></div>
+          <h3 class="work-title">AllianzQuiz</h3>
+          <p class="work-desc">A competitive quiz platform built for engagement: timed rounds, score tracking, real-time leaderboards, and an admin panel for managing question banks. This is the project where I pushed hardest on state management and live data with Firebase.</p>
+          <div class="work-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Firebase</span></div>
+          <div class="work-links">
+            <a href="https://allianz-quiz.vercel.app" target="_blank" rel="noopener" class="link-arrow">Live demo<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://github.com/Alli-ance01/AllianzQuiz" target="_blank" rel="noopener" class="link-arrow">Source code<i class="fa-solid fa-code" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- List -->
+      <ol class="work-list reveal" reversed>
+        <li class="work-row">
+          <span class="row-num">5</span>
+          <div class="row-body">
+            <div class="row-head">
+              <h3 class="work-title">Junior Church<span class="status-wip">In progress</span></h3>
+              <span class="row-stack"><span>HTML</span><span>CSS</span><span>JS</span><span>Firebase</span></span>
+            </div>
+            <p class="row-desc">Church management app with authentication, member profiles, event RSVPs, sermon notes, volunteer sign-ups, and a super-admin dashboard.</p>
+          </div>
+          <div class="row-actions">
+            <a href="https://almightyjuniorchurch.vercel.app" target="_blank" rel="noopener" aria-label="Junior Church live demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://github.com/Alli-ance01/Junior-Church" target="_blank" rel="noopener" aria-label="Junior Church source code"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+          </div>
+        </li>
+
+        <li class="work-row">
+          <span class="row-num">4</span>
+          <div class="row-body">
+            <div class="row-head">
+              <h3 class="work-title">SafeReach<span class="status-wip">In progress</span></h3>
+              <span class="row-stack"><span>HTML</span><span>CSS</span><span>Tailwind</span><span>JS</span><span>Firebase</span></span>
+            </div>
+            <p class="row-desc">Location-based emergency response portal connecting Nigerian citizens with security forces — automated location detection and one-tap dialing.</p>
+          </div>
+          <div class="row-actions">
+            <a href="https://safereach-ng.vercel.app" target="_blank" rel="noopener" aria-label="SafeReach live demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://github.com/Alli-ance01/safereach" target="_blank" rel="noopener" aria-label="SafeReach source code"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+          </div>
+        </li>
+
+        <li class="work-row">
+          <span class="row-num">3</span>
+          <div class="row-body">
+            <div class="row-head">
+              <h3 class="work-title">Alliance Store</h3>
+              <span class="row-stack"><span>HTML</span><span>CSS</span><span>JS</span><span>Firebase</span></span>
+            </div>
+            <p class="row-desc">A functional e-commerce storefront: product browsing, cart management, and checkout — built around a smooth, predictable shopping flow.</p>
+          </div>
+          <div class="row-actions">
+            <a href="https://alliance-store.vercel.app" target="_blank" rel="noopener" aria-label="Alliance Store live demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://github.com/Alli-ance01/Alliance-Store" target="_blank" rel="noopener" aria-label="Alliance Store source code"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+          </div>
+        </li>
+
+        <li class="work-row">
+          <span class="row-num">2</span>
+          <div class="row-body">
+            <div class="row-head">
+              <h3 class="work-title">ContentSpark</h3>
+              <span class="row-stack"><span>HTML</span><span>CSS</span><span>JS</span><span>Firebase</span><span>n8n</span></span>
+            </div>
+            <p class="row-desc">Productivity platform for creators to store, organize, and track content ideas — with real-time sync and n8n automations for reminders.</p>
+          </div>
+          <div class="row-actions">
+            <a href="https://content-spark-mu.vercel.app" target="_blank" rel="noopener" aria-label="ContentSpark live demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://github.com/Alli-ance01/content-spark" target="_blank" rel="noopener" aria-label="ContentSpark source code"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+          </div>
+        </li>
+
+        <li class="work-row">
+          <span class="row-num">1</span>
+          <div class="row-body">
+            <div class="row-head">
+              <h3 class="work-title">WayUp Conference</h3>
+              <span class="row-stack"><span>HTML</span><span>CSS</span><span>JS</span></span>
+            </div>
+            <p class="row-desc">A conference landing page with event details, speaker highlights, schedule listings, and registration — designed to inform and convert attendees.</p>
+          </div>
+          <div class="row-actions">
+            <a href="https://wayupconference.vercel.app" target="_blank" rel="noopener" aria-label="WayUp Conference live demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://github.com/Alli-ance01/WayUp-Conference" target="_blank" rel="noopener" aria-label="WayUp Conference source code"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ═══ 03 — EXPERIMENTS ═══════════════════════════════ -->
+    <section id="experiments" class="chapter">
+      <div class="chapter-meta"><span class="ch-num">03</span><span class="ch-label">Experiments</span></div>
+
+      <h2 class="section-heading reveal">Small builds, quick iterations</h2>
+
+      <ul class="exp-list reveal">
+        <li>
+          <span class="exp-name">Custom Timer</span>
+          <span class="exp-desc">Focus timer with custom intervals and sound notifications</span>
+          <a href="mini-projects/timer/index.html" class="link-arrow">Open<i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+        </li>
+        <li>
+          <span class="exp-name">Color Palette Generator</span>
+          <span class="exp-desc">One-click color scheme generation</span>
+          <a href="mini-projects/palette/index.html" class="link-arrow">Open<i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+        </li>
+        <li>
+          <span class="exp-name">Markdown Previewer</span>
+          <span class="exp-desc">Real-time markdown editor and renderer</span>
+          <a href="mini-projects/markdown/index.html" class="link-arrow">Open<i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ═══ 04 — JOURNEY ═══════════════════════════════════ -->
+    <section id="journey" class="chapter">
+      <div class="chapter-meta"><span class="ch-num">04</span><span class="ch-label">Journey</span></div>
+
+      <h2 class="section-heading reveal">Experience &amp; education</h2>
+
+      <ol class="ledger reveal">
+        <li>
+          <time class="mono" datetime="2026">Present</time>
+          <div>
+            <h3>Fullstack Developer in Training — <span>SQI College of ICT</span></h3>
+            <p>Mastering React.js and building scalable backends with Firebase and Node.js.</p>
+          </div>
+        </li>
+        <li>
+          <time class="mono" datetime="2026">Late 2025 – 2026</time>
+          <div>
+            <h3>Building Major Projects</h3>
+            <p>Shipped <a href="#work">AllianzQuiz</a> and <a href="#work">Alliance Store</a>, applying Firebase Authentication, Firestore, and production-grade JavaScript.</p>
+          </div>
+        </li>
+        <li>
+          <time class="mono" datetime="2025">2025</time>
+          <div>
+            <h3>Foundations &amp; Web Basics</h3>
+            <p>Semantic HTML5, CSS3 &amp; Tailwind, and modern JavaScript (ES6+) — the base everything above is built on.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ═══ 05 — STACK ═════════════════════════════════════ -->
+    <section id="stack" class="chapter">
+      <div class="chapter-meta"><span class="ch-num">05</span><span class="ch-label">Stack</span></div>
+
+      <h2 class="section-heading reveal">What I work with</h2>
+
+      <div class="stack-grid reveal">
+        <div class="stack-group">
+          <h3>Core</h3>
+          <ul class="stack-list">
+            <li><i class="devicon-html5-plain colored" aria-hidden="true"></i><span>HTML5</span></li>
+            <li><i class="devicon-css3-plain colored" aria-hidden="true"></i><span>CSS3</span></li>
+            <li><i class="devicon-javascript-plain colored" aria-hidden="true"></i><span>JavaScript</span></li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <h3>Styling</h3>
+          <ul class="stack-list">
+            <li><i class="devicon-tailwindcss-original colored" aria-hidden="true"></i><span>Tailwind</span></li>
+            <li><i class="devicon-react-original colored" aria-hidden="true"></i><span>React <em>learning</em></span></li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <h3>Backend &amp; Data</h3>
+          <ul class="stack-list">
+            <li><i class="devicon-firebase-plain colored" aria-hidden="true"></i><span>Firebase</span></li>
+            <li><i class="devicon-nodejs-plain colored" aria-hidden="true"></i><span>Node.js <em>learning</em></span></li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <h3>Tools</h3>
+          <ul class="stack-list">
+            <li><i class="devicon-git-plain colored" aria-hidden="true"></i><span>Git</span></li>
+            <li><i class="devicon-github-original" aria-hidden="true"></i><span>GitHub</span></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="contact-btns">
-        <a href="mailto:timileyinogunderekingmex@gmail.com" class="btn btn-outline" id="email-btn">
-          <i class="fa-solid fa-envelope"></i> timileyinogunderekingmex@gmail.com
-        </a>
-        <a href="https://github.com/Alli-ance01" target="_blank" rel="noopener" class="btn btn-outline" id="github-btn">
-          <i class="fa-brands fa-github"></i> GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/timileyinogundere" target="_blank" rel="noopener" class="btn btn-outline" id="linkedin-btn">
-          <i class="fa-brands fa-linkedin"></i> LinkedIn
-        </a>
-      </div>
-    </div>
-  </section>
+      <p class="stack-note">I build with plain HTML, CSS, and JavaScript first — frameworks come in when the problem calls for them.</p>
+    </section>
 
-  <!-- ═══ FOOTER ═══════════════════════════════════════════════ -->
+    <!-- ═══ 06 — CONTACT ═══════════════════════════════════ -->
+    <section id="contact" class="chapter">
+      <div class="chapter-meta"><span class="ch-num">06</span><span class="ch-label">Contact</span></div>
+
+      <div class="contact-inner reveal">
+        <h2 class="contact-heading">Let's build something<br />that works.</h2>
+        <p class="contact-lede">New project, internship, or collaboration — the inbox is open and I reply.</p>
+
+        <a href="mailto:timileyinogunderekingmex@gmail.com" class="contact-email">timileyinogunderekingmex@gmail.com</a>
+
+        <div class="contact-columns">
+          <form action="https://formspree.io/f/mdayjnrv" method="POST" class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" class="form-control" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" class="form-control" placeholder="What would you like to build?" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send message<i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
+          </form>
+
+          <div class="contact-alt">
+            <div class="contact-success" id="contactSuccess">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <h3>Message sent</h3>
+              <p>Thanks for reaching out — I'll get back to you soon.</p>
+              <button type="button" class="link-button" id="resetContact">Send another</button>
+            </div>
+            <ul class="social-list">
+              <li><a href="https://github.com/Alli-ance01" target="_blank" rel="noopener"><span class="mono">github</span><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.linkedin.com/in/timileyinogundere" target="_blank" rel="noopener"><span class="mono">linkedin</span><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+              <li><a href="mailto:timileyinogunderekingmex@gmail.com"><span class="mono">email</span><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══════════════════════════════════════════ -->
   <footer>
-    <p>Designed &amp; Built by <span>Oluwatimileyin Ogundere</span> &nbsp;·&nbsp; &copy; <span id="year"></span></p>
+    <div class="footer-inner">
+      <span class="mono">&lt;Timileyin/&gt;</span>
+      <p>Designed &amp; built by Oluwatimileyin Ogundere · <span id="year"></span></p>
+    </div>
   </footer>
 
-  <button id="scroll-top" title="Go to top">
-    <i class="fa-solid fa-arrow-up"></i>
+  <button class="scroll-top" id="scrollTop" type="button" aria-label="Back to top" hidden>
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>
 
   <script src="script.js"></script>
