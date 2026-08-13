@@ -69,30 +69,6 @@
               radial-gradient(ellipse 70% 50% at 10% 110%, var(--wash-a), transparent 55%);
 }
 
-/* ─── CUSTOM CURSOR ────────────────────────────────────── */
-.cursor-dot {
-  position: fixed; top: 0; left: 0;
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  z-index: 900;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: width var(--dur) var(--ease), height var(--dur) var(--ease), background var(--dur) var(--ease), opacity 300ms var(--ease);
-}
-.cursor-ring {
-  position: fixed; top: 0; left: 0;
-  width: 34px; height: 34px;
-  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
-  border-radius: 50%;
-  z-index: 899;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: width 320ms var(--ease), height 320ms var(--ease), border-color 320ms var(--ease), opacity 300ms var(--ease);
-}
-.cursor-ring.is-hovering { width: 52px; height: 52px; border-color: var(--accent); }
-@media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
-
 /* ─── RESET ────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: hidden; }

@@ -12,31 +12,6 @@
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
 
-  /* ─── custom cursor ───────────────────────────────────── */
-  if (!isTouchDevice()) {
-    const dot = document.querySelector('.cursor-dot');
-    const ring = document.querySelector('.cursor-ring');
-    let rafId = null;
-
-    const moveCursor = (clientX, clientY) => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        rafId = null;
-        dot.style.left = `${clientX}px`;
-        dot.style.top = `${clientY}px`;
-        ring.style.left = `${clientX}px`;
-        ring.style.top = `${clientY}px`;
-      });
-    };
-
-    window.addEventListener('mousemove', (e) => moveCursor(e.clientX, e.clientY), { passive: true });
-
-    document.querySelectorAll('a, button, .work-row').forEach((el) => {
-      el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
-    });
-  }
-
   /* ─── scroll reveal ───────────────────────────────────── */
   const revealTargets = document.querySelectorAll('.reveal-up');
   if (!prefersReduced() && 'IntersectionObserver' in window) {
