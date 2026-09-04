@@ -130,7 +130,7 @@
     applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')
   );
 
-  /* ─── live clock (hero meta, Lagos time) ──────────────── */
+  /* ─── live clock (hero meta, Ibadan time) ──────────────── */
   const heroClock = document.getElementById('hero-clock');
   if (heroClock) {
     const fmt = new Intl.DateTimeFormat('en-GB', {
